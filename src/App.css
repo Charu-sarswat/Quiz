@@ -1,6 +1,13 @@
-.App{
-  text-align:center;
-  display:flex;min-height:100vh;
-  background:rgb(2, 0, 36);
-  background: url("/public/game.jpg") no-repeat center/cover;
+.App {
+  text-align: center;
+  min-height: 100vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/game.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1rem, 3vw, 2rem);
 }
