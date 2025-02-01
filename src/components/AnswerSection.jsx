@@ -8,7 +8,7 @@ const AnswerSection = ({
   return (
     <div className="answer-section">
       {questions[currentQuestion]?.answers &&
-        Object.entries(questions[currentQuestion]?.answers).map(
+        Object.entries(questions[currentQuestion].answers).map(
           ([key, value]) =>
             value && (
               <button
@@ -16,7 +16,7 @@ const AnswerSection = ({
                 key={key}
                 onClick={() =>
                   handleAnswerOptionClick(
-                    questions[currentQuestion]?.correct_answers[
+                    questions[currentQuestion].correct_answers[
                       `${key}_correct`
                     ] === "true",
                     value
