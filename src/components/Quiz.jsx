@@ -15,49 +15,51 @@ const Quiz = () => {
   const fetchQuestions = async () => {
     try {
       console.log('Starting to fetch questions...');
+      setIsLoading(true);
       
-      // Add a short delay to show loading state
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Use a CORS proxy
+      const CORS_PROXY = 'https://api.allorigins.win/raw?url=';
+      const API_URL = encodeURIComponent('https://api.jsonserve.com/Uw5CrX');
+      const fullUrl = CORS_PROXY + API_URL;
       
-      const mockQuestions = [
-        {
-          question: "What is React?",
-          answers: {
-            answer_a: "A JavaScript library for building user interfaces",
-            answer_b: "A programming language",
-            answer_c: "A database",
-            answer_d: "An operating system"
-          },
-          correct_answers: {
-            answer_a_correct: "true",
-            answer_b_correct: "false",
-            answer_c_correct: "false",
-            answer_d_correct: "false"
-          }
+      console.log('Fetching from:', fullUrl);
+      
+      const response = await fetch(fullUrl);
+      console.log('Response status:', response.status);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      console.log('API Response:', data);
+      
+      // Transform the API questions into our expected format
+      const formattedQuestions = data.questions.map(q => ({
+        question: q.description,
+        answers: {
+          answer_a: q.options[0].description,
+          answer_b: q.options[1].description,
+          answer_c: q.options[2].description,
+          answer_d: q.options[3].description
         },
-        {
-          question: "Which hook is used for side effects in React?",
-          answers: {
-            answer_a: "useState",
-            answer_b: "useEffect",
-            answer_c: "useContext",
-            answer_d: "useReducer"
-          },
-          correct_answers: {
-            answer_a_correct: "false",
-            answer_b_correct: "true",
-            answer_c_correct: "false",
-            answer_d_correct: "false"
-          }
-        }
-      ];
+        correct_answers: {
+          answer_a_correct: q.options[0].is_correct.toString(),
+          answer_b_correct: q.options[1].is_correct.toString(),
+          answer_c_correct: q.options[2].is_correct.toString(),
+          answer_d_correct: q.options[3].is_correct.toString()
+        },
+        explanation: q.detailed_solution
+      }));
 
-      setQuestions(mockQuestions);
+      console.log('Setting formatted questions:', formattedQuestions);
+      setQuestions(formattedQuestions);
       setIsLoading(false);
+      setError(null);
       
     } catch (error) {
-      console.error('Error:', error);
-      setError('Failed to load questions. Please try again later.');
+      console.error('Error fetching questions:', error);
+      setError('Failed to load questions. Please try again.');
       setIsLoading(false);
     }
   };
