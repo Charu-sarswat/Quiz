@@ -192,7 +192,7 @@ const Quiz = () => {
         <h1>Devlab Quiz App</h1>
         <div className="welcome-screen">
           <h2>Welcome to the Quiz!</h2>
-          <p>Test your knowledge about React and web development.</p>
+          <p>Test your knowledge about Science and new Creativity.</p>
           <button className="start-btn" onClick={startQuiz}>
             Start Quiz
           </button>

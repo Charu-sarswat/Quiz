@@ -1,9 +1,9 @@
-.App{
-  text-align:center;
-  min-height:100vh;
-  background: linear-gradient(135deg,#1e3c72 0%,#2a5298 100%);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:clamp(1rem, 3vw, 2rem);
+.App {
+  text-align: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1rem, 3vw, 2rem);
 }
